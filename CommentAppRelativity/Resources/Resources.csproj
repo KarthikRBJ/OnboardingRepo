@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{46D5A755-A8FF-4095-AC28-E7F2B136D339}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Resources</RootNamespace>
+    <AssemblyName>Resources</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="kCura">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files\kCura Corporation\Relativity SDK\Agents\Client\kCura.dll</HintPath>
+    </Reference>
+    <Reference Include="kCura.Agent">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files\kCura Corporation\Relativity SDK\Agents\Client\kCura.Agent.dll</HintPath>
+    </Reference>
+    <Reference Include="kCura.EventHandler">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files\kCura Corporation\Relativity SDK\Event Handlers\Client\kCura.EventHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="kCura.Relativity.Client">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files\kCura Corporation\Relativity SDK\Services API\Client\kCura.Relativity.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Relativity.API">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files\kCura Corporation\Relativity SDK\Relativity API\Lib\Relativity.API.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Agents\Relativity Agent.cs" />
+    <Compile Include="EventHandlers\ConsoleEventHandlerComment.cs" />
+    <Compile Include="EventHandlers\MassOperationEventHandler.cs" />
+    <Compile Include="EventHandlers\PostSaveEventHandlerComment.cs" />
+    <Compile Include="EventHandlers\PreCascadeEventHandler.cs" />
+    <Compile Include="EventHandlers\PreDeleteEventHandlerComment.cs" />
+    <Compile Include="EventHandlers\PreLoadEvenHandlerComment.cs" />
+    <Compile Include="EventHandlers\PreSaveEventHandlerComment.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Queries.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Queries.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Queries.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\getCommentById.sql" />
+    <Content Include="Resources\GetWorkspacesWithApp.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\RelativityAppCORE\Core.csproj">
+      <Project>{05a3926d-9450-4a92-9370-c05b3d73b5b0}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

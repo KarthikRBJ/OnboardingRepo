@@ -1,0 +1,60 @@
+﻿@model  RelativityAppCore.DAL.Entities.Comment
+
+@{
+}
+
+@{
+
+}
+<!DOCTYPE html>
+<html ng-app="plunker">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AngularJS Plunker</title>
+    <script>document.write('<base href="' + document.location + '" />');</script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css" />
+    <script data-require="angular.js@1.5.x" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.11/angular.min.js" data-semver="1.5.11"></script>
+
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
+</head>
+<body ng-controller="MainCtrl">
+    <h1 style="background-color:#173A71; color:#FFF4E9">Document List</h1>
+
+    <ul ng-repeat="c in documents">
+        <li>
+            a{{c.Name}}
+        </li>
+    </ul>
+    @*<button ng-click="getComment(@Model.ArtifactId)">Get Comment By Service API</button>*@
+
+</body>
+
+<script type="text/javascript" charset="utf-8">
+  var app = angular.module('plunker', []);
+
+app.controller('MainCtrl', function($scope, $http) {
+
+        $http.get("http://192.168.0.148/Relativity/CustomPages/b9c4168d-a204-4478-b15b-89110f7abebb/Home/DocumentList")
+            .then(function (response) {
+                $scope.documents = response.data;
+                console.log($scope.comment)
+            });
+
+
+});
+
+</script>
+</html>
+

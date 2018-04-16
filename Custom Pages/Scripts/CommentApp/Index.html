@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html ng-app="commentApp">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AngularJS Plunker</title>
+    <script>document.write('<base href="' + document.location + '" />');</script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../Content/Site.css" />
+    <script data-require="angular.js@1.5.x" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.11/angular.min.js" data-semver="1.5.11"></script>
+    <script data-require="angular-route@*" data-semver="1.6.2" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular-route.js"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="commentapp.js"></script>
+    <script src="controllers/appcontroller.js"></script>
+    <script src="controllers/commentcontroller.js"></script>
+    <script src="controllers/documentcontroller.js"></script>
+    <script src="services/appservice.js"></script>
+    <script src="services/commentservice.js"></script>
+    <script src="services/documentservice.js"></script>
+</head>
+<body ng-class="secondBackgroundColor" ng-controller="appController">
+    <h3 class="primary_background_color primary_dark_color">Comments App</h3>
+    <div class="dropdown">
+        <button type="button" class="btn orange_background_color dropdown-toggle" data-toggle="dropdown">
+            Theme UI
+        </button>
+        <div class="dropdown-menu">
+            <h5 class="dropdown-header primary_color">Theme Selected: <b>{{theme.textValue}}</b></h5>
+            <a class="dropdown-item" ng-click="changeTheme(true)" >Light</a>
+            <a class="dropdown-item" ng-click="changeTheme(false)" >Dark</a>
+        </div>
+    </div>
+    <div id="sd" class="container" ng-view>
+
+    </div>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+

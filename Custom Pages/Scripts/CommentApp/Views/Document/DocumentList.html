@@ -1,0 +1,67 @@
+﻿<div id="sd" class="container">
+
+    <div class="row" ng-show="!documents">
+        <div class="col-4">
+            <p ng-class="primaryColor">
+                Loading Documents...
+            </p>
+            <div class="progress" style="height:30px">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width:100%;height:30px"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row" ng-show="documents">
+        <h3 ng-class="primaryColor" class="primary_color col-12">Document List</h3>
+        <div id="accordion" class="element col-12" ng-class="thirdBackgroundColor">
+            <div ng-repeat="c in documents" class="card">
+                <div ng-class="appClass" class="card-header  collapsed card-link link_element d-flex " data-toggle="collapse" href="#{{c.ArtifactId}}">
+                    <div ng-class="secondColor" class="second_color mr-auto p-2">
+                        <p><b>{{c.Name}}</b></p>
+                    </div>
+                    <div class="p-2">
+                        <span class="badge badge-secondary badge-pill"> {{c.amountComments}} Comments</span>
+
+                    </div>
+                </div>
+                <div id="{{c.ArtifactId}}" class="collapse" data-parent="#accordion">
+                    <div class="card-body" ng-class="secondBackgroundColor">
+                        <p class="orange_relativity"><b>Comments</b></p>
+
+                        <div id="comments">
+
+                            <div class="card" ng-repeat="comment in c.Comments">
+                                <div class="card-header d-flex" ng-mouseenter="getCommentData(comment.ArtifactId)" ng-class="thirdBackgroundColor">
+                                    <div ng-class="thirdColor" class="second_color mr-auto p-2">
+                                        <p>
+                                            <img src="{{comment.imageBase64}}" alt="Comment Image" ng-show="comment.imageBase64" />
+                                            <b>{{comment.Name}} </b>
+                                        </p>
+
+
+                                    </div>
+                                    <div class="p-2">
+                                        <a href="#/commentDetails/{{comment.ArtifactId}}">
+                                            <span class="card-link badge primary_background_color badge-pill link_element" data-toggle="collapse" href="#{{comment.ArtifactId}}" ng-click="getCommentAudit(comment.ArtifactId)"> Details</span>
+
+                                        </a>
+                                        
+                                    </div>
+
+                                </div>
+                                
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    
+
+</div>

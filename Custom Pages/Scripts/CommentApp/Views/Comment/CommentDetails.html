@@ -1,0 +1,103 @@
+﻿<div class="row" ng-show="!commentData">
+    <div class="col-4">
+        <p ng-class="primaryColor">
+            Loading Comment Details...
+        </p>
+        <div class="progress" style="height:30px">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width:100%;height:30px"></div>
+        </div>
+    </div>
+</div>
+<div class="element" ng-show="commentData" ng-class="fourthBackgroundColor">
+    <h1 class="orange_relativity">Comment Details</h1>
+    <p>
+        Image Thumbnail:
+        <img src="{{commentData.imageBase64}}" alt="Comment Image" ng-show="commentData.imageBase64" />
+
+    </p>
+    <p>Comment: {{commentData.Name}}</p>
+    <p>Created On: {{commentData.CreatedOn}}</p>
+
+    <span class="badge orange_background_color badge-pill link_element"  ng-click="getCommentAudit(commentId)">
+
+        ShowAudit
+    </span>
+    <span class="badge orange_background_color badge-pill link_element" data-toggle="modal" data-target="#myModal2" ng-click="showReplys(commentData, 'tree')">
+        Show Conversation
+    </span>
+
+    <a href="#/DocumentList">
+        <span class="badge orange_background_color badge-pill link_element">
+            Back
+        </span>
+    </a>
+   
+    <div class="element" id="audit"  ng-show="showAudit">
+        <div class="card-body" ng-class="fourthBackgroundColor">
+            <div class="container">
+                <table class="table-bordered table-hover table-responsive" ng-class="appClass">
+                    <thead ng-class="thirdBackgroundColor">
+                        <tr class="text-center">
+                            <th>Created by(Id)</th>
+                            <th>Created by(Name)</th>
+                            <th>Created On</th>
+                            <th>Modified by(Id)</th>
+                            <th>Modified by(Name)</th>
+                            <th>Modified On</th>
+                            <th>Replys</th>
+                            <th>Comment</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr class="text-center" ng-repeat="auditComment in audit">
+                            <th>{{auditComment.createByUserId}}</th>
+                            <th>{{auditComment.createdByUserName}}</th>
+                            <th>{{auditComment.createdOn}}</th>
+                            <th>{{auditComment.modifiedByUserId}}</th>
+                            <th>{{auditComment.modifiedByUserName}}</th>
+                            <th>{{auditComment.modifiedOn}}</th>
+                            <th>{{auditComment.replysAmount}}</th>
+                            <th>{{auditComment.comment}}</th>
+                            <th>{{auditComment.type}}</th>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="container">
+
+
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal2">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" ng-class="fourthBackgroundColor">
+                    <h4 class="modal-title orange_relativity">Conversation</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div id="comment_tree" ng-class="appClass" ng-show="showTree">
+
+                    <div id="tree" ng-class="primaryColor">
+
+                    </div>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer" ng-class="fourthBackgroundColor">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

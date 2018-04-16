@@ -1,0 +1,379 @@
+﻿<!DOCTYPE html>
+<html ng-app="commentApp">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AngularJS Plunker</title>
+    <script>document.write('<base href="' + document.location + '" />');</script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../Content/Site.css" />
+    <script data-require="angular.js@1.5.x" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.11/angular.min.js" data-semver="1.5.11"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!--<script src="commentApp.js"></script>
+    <script src="Controllers/AppController.js"></script>
+    <script src="Controllers/CommentController.js"></script>
+    <script src="Controllers/DocumentController.js"></script>
+    <script src="Services/AppService.js"></script>
+    <script src="Services/CommentService.js"></script>
+    <script src="Services/DocumentService.js"></script>-->
+</head>
+<body ng-class="secondBackgroundColor" ng-controller="appController">
+
+
+
+    <h3 class="primary_background_color primary_dark_color">Comments App</h3>
+
+    <div class="dropdown">
+        <button type="button" class="btn orange_background_color dropdown-toggle" data-toggle="dropdown">
+            Theme UI
+        </button>
+        <div class="dropdown-menu">
+            <h5 class="dropdown-header primary_color">Theme Selected: <b>{{theme.textValue}}</b></h5>
+            <a class="dropdown-item" ng-click="changeTheme(true)" href="#">Light</a>
+            <a class="dropdown-item" ng-click="changeTheme(false)" href="#">Dark</a>
+        </div>
+    </div>
+    <div id="sd" class="container">
+
+        <div class="row" ng-show="!documents">
+            <div class="col-4">
+                <p ng-class="primaryColor">
+                    Loading Documents...
+                </p>
+                <div class="progress" style="height:30px">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width:100%;height:30px"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="ss" class="row" ng-show="documents">
+            <h3 ng-class="primaryColor" class="primary_color col-12">Document List</h3>
+            <div id="accordion" class="element col-9" ng-class="thirdBackgroundColor">
+                <div ng-repeat="c in documents" class="card">
+                    <div ng-class="appClass" class="card-header  collapsed card-link link_element d-flex " data-toggle="collapse" href="#{{c.ArtifactId}}">
+                        <div ng-class="secondColor" class="second_color mr-auto p-2">
+                            <p><b>{{c.Name}}</b></p>
+                        </div>
+                        <div class="p-2">
+                            <span class="badge badge-secondary badge-pill"> {{c.amountComments}} Comments</span>
+
+                        </div>
+                        <div class="p-2">
+
+                            <span class="badge badge-secondary badge-pill" ng-click="getAmountCommentByKepler(c.ArtifactId)">Show  Comments using Kepler</span>
+                        </div>
+                    </div>
+
+
+                    <div id="{{c.ArtifactId}}" class="collapse" data-parent="#accordion">
+                        <div class="card-body" ng-class="secondBackgroundColor">
+                            <p class="orange_relativity"><b>Comments</b></p>
+
+                            <div id="comments">
+
+                                <div class="card" ng-repeat="comment in c.Comments">
+
+                                    <div class="card-header d-flex" ng-class="thirdBackgroundColor">
+                                        <div ng-mouseenter="getCommentData(comment.ArtifactId)" ng-class="thirdColor" class="second_color mr-auto p-2">
+
+                                            <p title="Text: {{commentData.Name}} - Created On: {{commentData.CreatedOn}}">
+
+                                                <img src="{{comment.imageBase64}}" alt="Comment Image" ng-show="comment.imageBase64" />
+
+
+                                                <b>{{comment.Name}} </b>
+
+                                            </p>
+
+
+                                        </div>
+                                        <div class="p-2">
+                                            <span class="card-link badge primary_background_color badge-pill link_element" data-toggle="collapse" href="#{{comment.ArtifactId}}" ng-click="getCommentAudit(comment.ArtifactId)"> Details</span>
+                                            <span title="Replys using Kepler: {{amountReplysComment}}" class="badge orange_background_color badge-pill link_element" data-toggle="modal" data-target="#myModal" ng-mouseenter="getAmountReplysByKepler(comment.ArtifactId)" ng-click="getCommentsChilds(comment.ArtifactId, comment.Name)">
+
+                                                Reply's
+                                            </span>
+                                            <span class="badge orange_background_color badge-pill link_element" data-toggle="modal" data-target="#myModal2" ng-click="showReplys(comment, 'tree')">
+
+
+                                                Show Conversation
+                                            </span>
+
+
+                                        </div>
+
+                                    </div>
+
+                                    <div id="{{comment.ArtifactId}}" class="collapse" data-parent="#comments">
+                                        <div class="card-body" ng-class="fourthBackgroundColor">
+                                            <div class="container" ng-show="showAudit">
+                                                <table class="table-bordered table-hover table-responsive" ng-class="appClass">
+                                                    <thead ng-class="thirdBackgroundColor">
+                                                        <tr class="text-center">
+                                                            <th>Created by(Id)</th>
+                                                            <th>Created by(Name)</th>
+                                                            <th>Created On</th>
+                                                            <th>Modified by(Id)</th>
+                                                            <th>Modified by(Name)</th>
+                                                            <th>Modified On</th>
+                                                            <th>Replys</th>
+                                                            <th>Comment</th>
+                                                            <th>Type</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        <tr class="text-center" ng-repeat="auditComment in audit">
+                                                            <th>{{auditComment.createByUserId}}</th>
+                                                            <th>{{auditComment.createdByUserName}}</th>
+                                                            <th>{{auditComment.createdOn}}</th>
+                                                            <th>{{auditComment.modifiedByUserId}}</th>
+                                                            <th>{{auditComment.modifiedByUserName}}</th>
+                                                            <th>{{auditComment.modifiedOn}}</th>
+                                                            <th>{{auditComment.replysAmount}}</th>
+                                                            <th>{{auditComment.comment}}</th>
+                                                            <th>{{auditComment.type}}</th>
+
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+        <div class="container">
+
+
+            <!-- The Modal -->
+            <div class="modal fade" id="myModal2">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header" ng-class="fourthBackgroundColor">
+                            <h4 class="modal-title orange_relativity">Conversation</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div id="comment_tree" ng-class="appClass" ng-show="showTree">
+
+                            <div id="tree" ng-class="primaryColor">
+
+                            </div>
+
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer" ng-class="fourthBackgroundColor">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="container">
+
+
+            <!-- The Modal -->
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header" ng-class="fourthBackgroundColor">
+                            <h4 class="modal-title orange_relativity">{{commentText}}</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body" ng-class="secondBackgroundColor" ng-include="'./Views/Comment/CommentChildsView.html'">
+                            Modal body..
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer" ng-class="fourthBackgroundColor">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+<script type="text/javascript" charset="utf-8">
+    var app = angular.module('commentApp', []);
+
+    app.controller('appController', function ($scope, $http) {
+        $scope.showReplys = false;
+        $http.get("http://192.168.0.148/Relativity/CustomPages/b9c4168d-a204-4478-b15b-89110f7abebb/Home/DocumentList")
+            .then(function (response) {
+                $scope.documents = response.data;
+                $scope.commentsDocument = $scope.documents.Comments;
+            });
+
+        $scope.getCommentData = function (commentAI) {
+            $http.get("http://192.168.0.148/Relativity/CustomPages/b9c4168d-a204-4478-b15b-89110f7abebb/Home/GetCommentData/?commentAI=" + commentAI)
+            .then(function (response) {
+                $scope.commentData = response.data;
+            });
+        }
+
+        $http.get("http://192.168.0.148/Relativity/CustomPages/b9c4168d-a204-4478-b15b-89110f7abebb/Home/getTheme")
+            .then(function (response) {
+                $scope.theme = response.data;
+                console.log($scope.theme);
+                $scope.setTheme($scope.theme.value);
+            });
+
+        $scope.getCommentsChilds = function (artifactId, comment) {
+            $http.get("http://192.168.0.148/Relativity/CustomPages/b9c4168d-a204-4478-b15b-89110f7abebb/Home/GetCommentReplys/?artifactId=" + artifactId)
+            .then(function (response) {
+                $scope.commentText = comment;
+                $scope.childs = response.data;
+
+            });
+        }
+
+        $scope.changeTheme = function (theme) {
+
+            $http.get("http://192.168.0.148/Relativity/CustomPages/b9c4168d-a204-4478-b15b-89110f7abebb/Home/changeTheme/?value=" +theme)
+            .then(function (response) {
+                if (response.data == 1) {
+                    $scope.setTheme(theme);
+
+                }
+            });
+        }
+
+        $scope.getCommentAudit = function (commentId) {
+            $scope.audit = "";
+            $http.get("http://192.168.0.148/Relativity/CustomPages/b9c4168d-a204-4478-b15b-89110f7abebb/Home/getCommentAudit/?commentId=" +commentId)
+            .then(function (response) {
+                $scope.showAudit = true;
+                $scope.audit = response.data;
+                if ($scope.audit.length == 0) {
+                    $scope.showAudit = false;
+                }
+            });
+        }
+
+        $scope.getAmountCommentByKepler = function (documentAI) {
+            $scope.amountComment = undefined;
+            $http.get("http://192.168.0.148/Relativity/CustomPages/b9c4168d-a204-4478-b15b-89110f7abebb/Home/getAmountCommentByKepler/?documentAI=" + documentAI)
+            .then(function (response) {
+                $scope.amountComment = response.data;
+               alert($scope.amountComment);
+            });
+
+        };
+
+
+        $scope.getAmountReplysByKepler = function (commentAI) {
+            $scope.amountReplysComment = undefined;
+            $http.get("http://192.168.0.148/Relativity/CustomPages/b9c4168d-a204-4478-b15b-89110f7abebb/Home/getAmountReplysByKepler/?commentAI=" + commentAI)
+            .then(function (response) {
+                $scope.amountReplysComment = response.data;
+
+            });
+
+        };
+        $scope.setTheme = function (value) {
+            if (value) {
+                $scope.theme.textValue = "LIGHT";
+                $scope.appClass = "background_light";
+                $scope.primaryColor = "primary_color";
+                $scope.secondColor = "second_color";
+                $scope.secondBackgroundColor = "background_light";
+                $scope.thirdBackgroundColor = "third_background_light";
+                $scope.thirdColor = "third_light_color";
+                $scope.fourthBackgroundColor = "fourth_background_light";
+                $scope.theadBackground = "thead-light";
+            } else {
+                $scope.theme.textValue = "DARK";
+                $scope.appClass = "background_dark";
+                $scope.primaryColor = "primary_dark_color";
+                $scope.secondColor = "second_dark_color";
+                $scope.secondBackgroundColor = "second_background_dark";
+                $scope.thirdBackgroundColor = "third_background_dark";
+                $scope.thirdColor = "third_light_color";
+                $scope.fourthBackgroundColor = "fourth_background_dark";
+                $scope.theadBackground = "thead-dark";
+
+            }
+        }
+
+        $scope.show = function () {
+            $scope.showTree = !$scope.showTree;
+        }
+
+        $scope.showReplys = function (comment, id) {
+            $scope.showTree = true;
+            var array = comment.CommentChilds;
+            if (array.length == 0) {
+                document.getElementById("tree").innerHTML = "<b>Without Reply's</b>";
+            } else {
+                document.getElementById("tree").innerHTML = "<b>Reply's</b>";
+                $scope.drawCommentTree(comment, id);
+            }
+        }
+
+        $scope.drawCommentTree = function (comment, id) {
+            var array = comment.CommentChilds;
+            elemento1 = document.createElement('ul');
+            elemento1.id = comment.ArtifactId+"c";
+            elemento2 = document.getElementById(id);
+            elemento2.appendChild(elemento1);
+
+            array.forEach(function (element) {
+                elemento3 = document.createElement('li');
+                elemento3.id = element.ArtifactId;
+                elemento3.className = "element textComment";
+                elemento4 = document.getElementById(comment.ArtifactId + "c");
+                elemento4.appendChild(elemento3);
+                var d = document.getElementById(element.ArtifactId);
+
+                if (element.imageBase64) {
+                    d = document.getElementById(element.ArtifactId);
+                    d.innerHTML += "<img src='" + element.imageBase64 + "' />"
+                }
+                d.innerHTML += element.Name;
+                d.innerHTML += "<p>Created by: <b>" + element.CreatedBy.Name + "<b></p>";
+                d.innerHTML += "<p>Created On " + element.CreatedOn + "</p>";
+                $scope.drawCommentTree(element, comment.ArtifactId + "c");
+            })
+
+        }
+
+
+
+    });
+
+</script>
+
+</html>

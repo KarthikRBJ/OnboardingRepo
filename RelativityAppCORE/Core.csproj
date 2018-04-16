@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{05A3926D-9450-4A92-9370-C05B3D73B5B0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RelativityAppCore</RootNamespace>
+    <AssemblyName>RelativityAppCore</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="kCura">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files\kCura Corporation\Relativity SDK\Agents\Client\kCura.dll</HintPath>
+    </Reference>
+    <Reference Include="kCura.Relativity.Client">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files\kCura Corporation\Relativity SDK\Services API\Client\kCura.Relativity.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Relativity.API">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files\kCura Corporation\Relativity SDK\Relativity API\Lib\Relativity.API.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BLL\Service\RSAPIService\CommentRSAPIService.cs" />
+    <Compile Include="BLL\Service\RSAPIService\DocumentRSAPIService.cs" />
+    <Compile Include="BLL\Service\RSAPIService\FolderRSAPIService.cs" />
+    <Compile Include="BLL\Service\RSAPIService\WorkspaceRSAPIService.cs" />
+    <Compile Include="BLL\Service\SqlService\CommentSqlService.cs" />
+    <Compile Include="DAL\Connection\RSAPIConnection\Connection.cs" />
+    <Compile Include="DAL\Connection\SqlConnection\Connection.cs" />
+    <Compile Include="DAL\Entities\Artifact.cs" />
+    <Compile Include="DAL\Entities\Comment.cs" />
+    <Compile Include="DAL\Entities\Document.cs" />
+    <Compile Include="DAL\Entities\Folder.cs" />
+    <Compile Include="DAL\Entities\Workspace.cs" />
+    <Compile Include="DAL\Repositories\RSAPIRepository\CommentRepositoryRSAPI.cs" />
+    <Compile Include="DAL\Repositories\RSAPIRepository\DocumentRepositoryRSAPI.cs" />
+    <Compile Include="DAL\Repositories\RSAPIRepository\FolderRepositoryRSAPI.cs" />
+    <Compile Include="DAL\Repositories\RSAPIRepository\WorkspaceRepositoryRSAPI.cs" />
+    <Compile Include="DAL\Repositories\SqlRepository\CommentRepositorySql.cs" />
+    <Compile Include="Interfaces\IGenericRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ICommentRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IDocumentRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IFolderRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IWorkspaceRepository.cs" />
+    <Compile Include="Interfaces\Services\ICommentService.cs" />
+    <Compile Include="Interfaces\Services\IDocumentService.cs" />
+    <Compile Include="Interfaces\Services\IFolderService.cs" />
+    <Compile Include="Interfaces\Services\IWorkspaceService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

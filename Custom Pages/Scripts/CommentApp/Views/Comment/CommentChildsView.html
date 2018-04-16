@@ -1,0 +1,74 @@
+﻿<div>
+<div class="row" ng-show="!childs">
+    <div class="col-4">
+        <p ng-class="primaryColor">
+            Loading Reply's...
+        </p>
+        <div class="progress" style="height:30px">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width:100%;height:30px"></div>
+        </div>
+    </div>
+</div>
+<div class="container " ng-show="childs">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="primary_color" ng-class="secondColor">Reply's </h3>
+            <div id="accordionChilds" class="element" ng-class="thirdBackgroundColor">
+
+                <div class="card" ng-repeat="cc in childs">
+                    <div class="card-header d-flex " ng-class="thirdBackgroundColor">
+                        <div ng-class="thirdColor" class="mr-auto p-2">
+                            <p>
+                                <img src="{{cc.imageBase64}}" />
+                            <b>{{cc.Name}}</b></p>
+                        </div>
+                        <div class="p-2">
+                            <a>
+                                <span class="card-link badge badge-secondary badge-pill link_element" data-toggle="collapse" href="#{{cc.ArtifactId}}"  ng-click="getCommentAudit(cc.ArtifactId)"> Details</span>
+                            </a>
+                        </div>
+
+                    </div>
+                    <div id="{{cc.ArtifactId}}" class="collapse" data-parent="#accordionChilds">
+                        <div class="card-body" ng-class="fourthBackgroundColor">
+                            {{cc.CreatedBy.Name}} - {{cc.CreatedOn}}
+                        </div>
+                        div class="container" ng-show="showAudit">
+                        <table class="table-bordered table-hover table-responsive" ng-class="appClass">
+                            <thead ng-class="thirdBackgroundColor">
+                                <tr class="text-center">
+                                    <th>Created by(Id)</th>
+                                    <th>Created by(Name)</th>
+                                    <th>Created On</th>
+                                    <th>Modified by(Id)</th>
+                                    <th>Modified by(Name)</th>
+                                    <th>Modified On</th>
+                                    <th>Replys</th>
+                                    <th>Comment</th>
+                                    <th>Type</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr class="text-center" ng-repeat="auditComment in audit">
+                                    <th>{{auditComment.createByUserId}}</th>
+                                    <th>{{auditComment.createdByUserName}}</th>
+                                    <th>{{auditComment.createdOn}}</th>
+                                    <th>{{auditComment.modifiedByUserId}}</th>
+                                    <th>{{auditComment.modifiedByUserName}}</th>
+                                    <th>{{auditComment.modifiedOn}}</th>
+                                    <th>{{auditComment.replysAmount}}</th>
+                                    <th>{{auditComment.comment}}</th>
+                                    <th>{{auditComment.type}}</th>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
